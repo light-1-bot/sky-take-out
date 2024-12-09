@@ -59,6 +59,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
     /**
      * 设置静态资源映射
+     * 防止被认为是controller
      * @param registry
      */
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
