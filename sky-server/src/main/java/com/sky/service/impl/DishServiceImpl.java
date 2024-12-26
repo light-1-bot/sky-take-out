@@ -93,7 +93,7 @@ public class DishServiceImpl implements DishService {
         for (Long id : ids) {
             Dish dish = dishMapper.getById(id);
             if (dish.getStatus() == StatusConstant.ENABLE) {
-                throw new DeletionNotAllowedException(MessageConstant.SETMEAL_ON_SALE);
+                throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
             }
         }
 
@@ -183,5 +183,17 @@ public class DishServiceImpl implements DishService {
                 }
             }
         }
+    }
+
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<DishVO> getByCategoryId(Long categoryId) {
+
+        List<DishVO> list=dishMapper.getByCategoryId(categoryId);
+        return list;
     }
 }
