@@ -10,8 +10,9 @@ public interface SetmealDishMapper {
     /**
      * 根据菜品id查询对应的套餐id
      *
-     * @param dishIds
+     * @param ids
      * @return
      */
     List<Long> getSetmealIdsByDishIds(List<Long> ids);
+
 }
