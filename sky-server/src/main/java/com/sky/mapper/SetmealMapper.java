@@ -48,6 +48,11 @@ public interface SetmealMapper {
 
     List<Setmeal> getByIds(List<Long> ids);
 
+    /**
+     * 根据id查询套餐
+     * @param id
+     * @return
+     */
     @Select("select * from setmeal where id=#{id}")
     Setmeal getById(Long id);
 
