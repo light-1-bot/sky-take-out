@@ -2,6 +2,7 @@ package com.sky.service.impl;
 
 import com.sky.constant.MessageConstant;
 import com.sky.context.BaseContext;
+import com.sky.dto.OrdersPaymentDTO;
 import com.sky.dto.OrdersSubmitDTO;
 import com.sky.entity.AddressBook;
 import com.sky.entity.OrderDetail;
@@ -93,6 +94,21 @@ public class OrderServiceImpl implements OrderService {
 
 
 
+
+    }
+
+    /**
+     * 订单支付
+     * @param ordersPaymentDTO
+     * @return
+     */
+    @Override
+    public void payment(OrdersPaymentDTO ordersPaymentDTO) {
+        Orders orders=orderMapper.getByNumber(ordersPaymentDTO.getOrderNumber());
+        orders.setCheckoutTime(LocalDateTime.now());
+        orders.setStatus(Orders.TO_BE_CONFIRMED);
+        orders.setPayStatus(Orders.PAID);
+        orderMapper.update(orders);
 
     }
 }
