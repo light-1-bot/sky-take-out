@@ -25,6 +25,7 @@ import com.sky.utils.HttpClientUtil;
 import com.sky.vo.OrderStatisticsVO;
 import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
+import com.sky.websocket.WebSocketServer;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,6 +57,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Value("${sky.baidu.ak}")
     private String ak;
+    @Autowired
+    private WebSocketServer webSocketServer;
 
     /**
      * 用户下单
@@ -129,6 +132,12 @@ public class OrderServiceImpl implements OrderService {
         orders.setStatus(Orders.TO_BE_CONFIRMED);
         orders.setPayStatus(Orders.PAID);
         orderMapper.update(orders);
+
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("type",1);
+        map.put("orderId",orders.getId());
+        map.put("content", "订单号：" +orders.getNumber());
+        webSocketServer.sendToAllClient(JSON.toJSONString(map));
 
     }
 
